@@ -19,6 +19,19 @@
 #define USB_DIR_IN 0x80
 #define USB_DIR_OUT 0
 
+struct vidpid {
+  uint16 vid;
+  uint16 pid[];
+} vidpid_t, *pvidpid_t;
+
+// Sony
+vidpid_t vp_sony = {VID, {PS3_PID, PS4_PID, NAV_PID}};
+// clones
+vidpid_t vp_clones ={
+  // masq as xbox 045e:028e
+  {0x045e, {0x028e}}
+};
+
 void fatal(char *msg) { perror(msg); exit(1); }
 
 void show_master(usb_dev_handle *devh, int itfnum, int pid) {
